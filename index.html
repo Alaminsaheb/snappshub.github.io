@@ -1,103 +1,328 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#6c4cff">
-<meta name="description" content="Discover apps, tools and useful downloads at SnappsHub.">
-<title>SnappsHub — Apps & Tools</title>
-<style>
-:root{color-scheme:dark;--bg:#0b0b14;--card:#151525;--text:#f7f5ff;--muted:#aaa8c1;--accent:#9675ff}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif}
-header{position:sticky;top:0;background:#0b0b14ed;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff12;z-index:2}
-nav,.wrap{width:min(1100px,92%);margin:auto}
-nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font-size:23px;font-weight:850;letter-spacing:-1px}.logo span{color:var(--accent)}
-a{color:inherit;text-decoration:none}
-.hero{padding:70px 0 42px;text-align:center}
-.tag{display:inline-block;color:#c5b8ff;background:#9675ff20;border:1px solid #9675ff50;border-radius:30px;padding:7px 13px;font-size:13px}
-h1{font-size:clamp(35px,7vw,62px);line-height:1.08;letter-spacing:-2px;margin:22px 0 14px}
-h1 span{background:linear-gradient(100deg,#b9a4ff,#6ee7ff);color:transparent;background-clip:text}
-p{color:var(--muted);line-height:1.7}
-.hero p{max-width:570px;margin:0 auto 25px}
-.search{display:flex;max-width:540px;margin:25px auto 0;background:var(--card);border:1px solid #ffffff20;border-radius:15px;padding:6px}
-.search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:white;padding:12px;font-size:15px}
-.search button,.btn{background:var(--accent);border:0;border-radius:10px;padding:12px 18px;color:white;font-weight:700;cursor:pointer}
-section{padding:24px 0 55px}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
-h2{font-size:25px;margin:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
-.card{background:var(--card);border:1px solid #ffffff12;border-radius:18px;padding:20px;transition:.2s}
-.card:hover{transform:translateY(-4px);border-color:#9675ff88}
-.appicon{width:54px;height:54px;display:grid;place-items:center;background:linear-gradient(135deg,#9675ff,#46c9e8);border-radius:15px;font-size:25px}
-.card h3{margin:17px 0 5px}.card p{font-size:14px;min-height:44px;margin:7px 0 18px}
-.card .btn{display:inline-block;font-size:13px;padding:10px 15px}
-.empty{display:none;text-align:center;padding:30px;color:var(--muted)}
-footer{text-align:center;border-top:1px solid #ffffff12;padding:28px 0 35px;font-size:13px;color:var(--muted)}
-@media(max-width:480px){.hero{padding-top:48px}.search button{padding:10px}.grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#6ab344">
+  <meta name="description" content="Apps, tools, and useful Android resources.">
+  <title>SnappsHub — Apps & Tools</title>
+  <style>
+    :root{
+      --green:#6ab344;--green-dark:#579c35;--ink:#222;--muted:#777;
+      --line:#ececec;--paper:#fff;--page:#f6f7f6;--dark:#070707;
+      --radius:7px;--shadow:0 2px 12px rgba(0,0,0,.045);
+      --width:1100px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--page);color:#555;font:15px/1.65 Lato,Arial,Helvetica,sans-serif}
+    a{color:inherit;text-decoration:none}
+    button,input{font:inherit}
+    button,a,input{-webkit-tap-highlight-color:transparent}
+    .topbar{background:var(--dark);color:#eee;font-size:12px}
+    .top-inner,.wrap{width:min(var(--width),calc(100% - 32px));margin:auto}
+    .top-inner{min-height:36px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .top-links,.socials{display:flex;align-items:center;gap:17px}
+    .top-links a:hover,.socials a:hover{color:var(--green)}
+    .socials a{display:inline-flex;align-items:center;justify-content:center;width:23px;height:23px;border:1px solid #444;border-radius:50%;font-size:10px;font-weight:700}
+    .masthead{background:#fff;border-bottom:1px solid var(--line)}
+    .brand-row{min-height:115px;display:flex;align-items:center;justify-content:space-between;gap:25px}
+    .brand{display:flex;align-items:center;gap:13px;min-width:0}
+    .brand-mark{width:54px;height:54px;border-radius:13px;background:var(--green);display:grid;place-items:center;color:#fff;font-size:29px;font-weight:800;box-shadow:inset 0 -4px rgba(0,0,0,.08)}
+    .brand-name{margin:0;color:#222;font-size:29px;font-weight:800;letter-spacing:-1px;line-height:1.15}
+    .brand-name span{color:var(--green)}
+    .tagline{margin:5px 0 0;color:#888;font-size:12px}
+    .header-search{display:flex;width:min(340px,45%);height:42px;border:1px solid #e7e7e7;border-radius:4px;overflow:hidden;background:#fff}
+    .header-search input{width:100%;min-width:0;border:0;outline:0;padding:0 13px;color:#333;background:transparent}
+    .header-search button{width:46px;flex:0 0 46px;border:0;background:var(--green);color:white;cursor:pointer;font-size:18px}
+    .nav-wrap{background:var(--green);color:white;box-shadow:0 2px 5px #0000000a}
+    .nav-inner{display:flex;align-items:stretch;justify-content:space-between;min-height:49px}
+    .nav-links{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+    .nav-links a{display:flex;align-items:center;padding:0 17px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.35px}
+    .nav-links a:hover,.nav-links a.active{background:var(--green-dark);color:#fff}
+    .menu-toggle{display:none;background:transparent;border:0;color:white;font-size:24px;padding:7px 0;cursor:pointer}
+    .page{display:grid;grid-template-columns:minmax(0,2fr) minmax(250px,1fr);gap:25px;padding-top:27px;padding-bottom:30px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 18px;padding:0 0 10px;border-bottom:2px solid var(--green);color:#222;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+    .section-title small{font-size:11px;color:#999;font-weight:500;text-transform:none;letter-spacing:0}
+    .posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .post{background:var(--paper);border:1px solid #ededed;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
+    .post:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+    .post-art{aspect-ratio:16/9;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#eef7e9,#d9edce)}
+    .post-art:before,.post-art:after{content:"";position:absolute;border-radius:50%;background:#6ab34418}
+    .post-art:before{width:180px;height:180px;right:-35px;top:-65px}
+    .post-art:after{width:120px;height:120px;left:-38px;bottom:-58px}
+    .app-icon{position:relative;z-index:1;width:78px;height:78px;display:grid;place-items:center;border-radius:21px;background:#fff;color:var(--green-dark);font-size:36px;font-weight:800;box-shadow:0 7px 24px #2e67221c}
+    .post:nth-child(3n+2) .post-art{background:linear-gradient(135deg,#e8f3fb,#d9e9f7)}
+    .post:nth-child(3n+2) .app-icon{color:#3f83bc}
+    .post:nth-child(3n) .post-art{background:linear-gradient(135deg,#f9f0e5,#f4dfc7)}
+    .post:nth-child(3n) .app-icon{color:#c27c31}
+    .category{position:absolute;z-index:2;left:12px;top:12px;padding:4px 8px;background:var(--green);color:white;border-radius:3px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.35px}
+    .post-body{padding:15px 16px 16px}
+    .meta{font-size:11px;color:#999;margin-bottom:6px}
+    .meta span{margin-right:10px}
+    .post h2{font-size:17px;line-height:1.4;color:#252525;margin:0 0 8px;font-weight:800}
+    .post h2 a:hover{color:var(--green-dark)}
+    .post p{margin:0;color:#777;font-size:13px;line-height:1.7}
+    .read-more{display:inline-block;margin-top:12px;color:var(--green-dark);font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+    .read-more:hover{text-decoration:underline}
+    .empty{display:none;grid-column:1/-1;background:white;border:1px solid var(--line);padding:28px;text-align:center;border-radius:var(--radius)}
+    .sidebar-box{background:#fff;border:1px solid #ededed;border-radius:var(--radius);padding:18px;margin-bottom:20px;box-shadow:var(--shadow)}
+    .sidebar-box .section-title{font-size:14px;margin-bottom:14px}
+    .about{font-size:13px;color:#777;margin:0}
+    .quick-links{list-style:none;margin:0;padding:0}
+    .quick-links li{border-bottom:1px solid #f0f0f0}
+    .quick-links li:last-child{border-bottom:0}
+    .quick-links a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 0;font-size:13px;color:#666}
+    .quick-links a:after{content:"›";font-size:20px;color:var(--green)}
+    .quick-links a:hover{color:var(--green-dark)}
+    .tag-list{display:flex;flex-wrap:wrap;gap:7px}
+    .tag-list button{border:1px solid #e8e8e8;background:#fafafa;color:#777;border-radius:3px;padding:5px 9px;font-size:11px;cursor:pointer}
+    .tag-list button:hover,.tag-list button.selected{background:var(--green);border-color:var(--green);color:white}
+    .subscribe{display:flex;flex-direction:column;gap:9px}
+    .subscribe input{width:100%;border:1px solid #e5e5e5;border-radius:3px;padding:10px;outline-color:var(--green)}
+    .subscribe button{border:0;border-radius:3px;padding:10px;background:var(--green);color:#fff;font-weight:800;cursor:pointer}
+    .subscribe small{color:#999;font-size:11px}
+    .pagination{display:flex;justify-content:center;gap:7px;margin-top:24px}
+    .pagination button{border:1px solid #e6e6e6;background:#fff;color:#666;border-radius:3px;padding:8px 12px;cursor:pointer}
+    .pagination button.current,.pagination button:hover{background:var(--green);border-color:var(--green);color:#fff}
+    .footer{background:#151515;color:#aaa}
+    .footer-main{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px;padding-top:30px;padding-bottom:28px}
+    .footer h3{margin:0 0 12px;color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.3px}
+    .footer p{font-size:12px;margin:0;color:#aaa}
+    .footer a{color:#aaa;font-size:12px}
+    .footer a:hover{color:var(--green)}
+    .footer-links{display:grid;gap:7px}
+    .copyright{border-top:1px solid #2c2c2c;padding:15px 0;font-size:11px}
+    .copyright-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .notice{display:none;margin-bottom:15px;padding:10px 12px;background:#edf7e8;color:#3d7926;border:1px solid #d8ebce;border-radius:4px;font-size:12px}
+    @media(max-width:800px){
+      .page{grid-template-columns:minmax(0,1fr) 250px;gap:18px}
+      .posts{gap:13px}
+      .post-body{padding:12px}
+      .post h2{font-size:15px}
+      .nav-links a{padding:0 11px}
+    }
+    @media(max-width:650px){
+      .top-inner{min-height:32px}
+      .top-links a:nth-child(n+3){display:none}
+      .brand-row{min-height:88px}
+      .brand-mark{width:45px;height:45px;font-size:24px;border-radius:11px}
+      .brand-name{font-size:24px}
+      .tagline{font-size:11px}
+      .header-search{width:43px;height:40px;border:0;background:transparent}
+      .header-search input{display:none}
+      .header-search button{width:43px;flex-basis:43px;border-radius:4px}
+      .nav-inner{display:block;position:relative}
+      .menu-toggle{display:block;min-height:46px}
+      .nav-links{display:none;flex-direction:column;padding:0 0 8px}
+      .nav-links.open{display:flex}
+      .nav-links a{min-height:41px;padding:0 12px;border-top:1px solid #ffffff20}
+      .page{grid-template-columns:1fr;padding-top:19px;gap:22px}
+      .posts{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+      .post-art{aspect-ratio:1.2}
+      .app-icon{width:58px;height:58px;border-radius:16px;font-size:28px}
+      .category{left:8px;top:8px;font-size:9px}
+      .post-body{padding:10px}
+      .post h2{font-size:14px}
+      .post p{font-size:12px}
+      .meta{font-size:10px}
+      .read-more{font-size:10px}
+      .sidebar{display:grid;grid-template-columns:1fr;gap:0}
+      .footer-main{grid-template-columns:1fr;gap:22px}
+    }
+    @media(max-width:360px){
+      .posts{grid-template-columns:1fr}
+      .post-art{aspect-ratio:16/9}
+      .brand-name{font-size:21px}
+      .socials{gap:7px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
 </head>
 <body>
-<header><nav><a class="logo" href="#">Snapps<span>Hub</span></a><a href="#apps">Explore Apps ↗</a></nav></header>
-<main class="wrap">
-<div class="hero">
-<span class="tag">✦ YOUR DIGITAL DISCOVERY HUB</span>
-<h1>Apps that make life<br><span>more awesome.</span></h1>
-<p>Discover useful apps, digital tools and downloads—all in one place.</p>
-<form class="search" id="searchForm">
-<input id="search" type="search" placeholder="Search apps and tools..." aria-label="Search apps">
-<button type="submit">Search</button>
-</form>
-</div>
-<section id="apps">
-<div class="section-head"><h2>Explore Apps</h2><span id="count" style="color:var(--muted);font-size:13px">3 collections</span></div>
-<div class="grid" id="grid">
-<article class="card" data-search="android apps mobile">
-<div class="appicon">📱</div><h3>Android Apps</h3>
-<p>Explore apps and useful mobile resources.</p>
-<a class="btn" href="#contact">Explore More ↗</a>
-</article>
-<article class="card" data-search="tools utilities web online">
-<div class="appicon">⚡</div><h3>Web Tools</h3>
-<p>Discover handy tools for everyday tasks.</p>
-<a class="btn" href="#contact">Explore More ↗</a>
-</article>
-<article class="card" data-search="games entertainment">
-<div class="appicon">🎮</div><h3>Games & Fun</h3>
-<p>Find entertainment and gaming resources.</p>
-<a class="btn" href="#contact">Explore More ↗</a>
-</article>
-</div>
-<div class="empty" id="empty">No matching collections found. Try another search.</div>
-</section>
-<section id="contact">
-<div class="card" style="text-align:center">
-<h2>Something missing?</h2>
-<p>More apps and resources can be added here as the site grows.</p>
-<a class="btn" href="https://github.com/Alaminsaheb/snappshub.github.io">View Project on GitHub ↗</a>
-</div>
-</section>
-</main>
-<footer>© <span id="year"></span> SnappsHub. Built for app discovery.</footer>
-<script>
-const form=document.getElementById('searchForm');
-const input=document.getElementById('search');
-const cards=[...document.querySelectorAll('.card[data-search]')];
-const empty=document.getElementById('empty');
-const count=document.getElementById('count');
-function filterCards(){
- const q=input.value.trim().toLowerCase();let shown=0;
- cards.forEach(card=>{
-  const match=(card.dataset.search+' '+card.innerText).toLowerCase().includes(q);
-  card.style.display=match?'':'none';if(match)shown++;
- });
- empty.style.display=shown?'none':'block';
- count.textContent=shown+' collections';
-}
-form.addEventListener('submit',e=>{e.preventDefault();filterCards()});
-input.addEventListener('input',filterCards);
-document.getElementById('year').textContent=new Date().getFullYear();
-</script>
+  <div class="topbar">
+    <div class="top-inner">
+      <div class="top-links">
+        <a href="#home">Home</a><a href="#about">About</a><a href="#contact">Contact</a><a href="#privacy">Privacy Policy</a>
+      </div>
+      <div class="socials" aria-label="Social links">
+        <a href="#" aria-label="Facebook">f</a><a href="#" aria-label="X">X</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Telegram">➤</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="masthead" id="home">
+    <div class="wrap brand-row">
+      <a class="brand" href="./" aria-label="SnappsHub home">
+        <div class="brand-mark" aria-hidden="true">S</div>
+        <div><p class="brand-name">Snapps<span>Hub</span></p><p class="tagline">Apps, tools & useful resources</p></div>
+      </a>
+      <form class="header-search" id="searchForm" role="search">
+        <input id="searchInput" type="search" placeholder="Search apps..." aria-label="Search apps">
+        <button type="submit" aria-label="Search">⌕</button>
+      </form>
+    </div>
+  </header>
+
+  <nav class="nav-wrap" aria-label="Main navigation">
+    <div class="wrap nav-inner">
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">☰ <span style="font-size:12px;font-weight:800">MENU</span></button>
+      <div class="nav-links" id="navLinks">
+        <a class="active" href="#home">Home</a>
+        <a href="#latest">Latest Apps</a>
+        <a href="#android" data-filter="Android">Android</a>
+        <a href="#tools" data-filter="Tools">Tools</a>
+        <a href="#games" data-filter="Games">Games</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap page">
+    <section class="main-column" id="latest">
+      <h1 class="section-title"><span>Latest Apps & Tools</span><small id="resultCount">6 posts</small></h1>
+      <div class="notice" id="notice" role="status"></div>
+      <div class="posts" id="posts">
+        <article class="post" data-category="Android Apps">
+          <div class="post-art"><span class="category">Android</span><div class="app-icon" aria-hidden="true">A</div></div>
+          <div class="post-body"><div class="meta"><span>📅 Apps & Updates</span><span>● Android</span></div><h2><a href="#app-1">Essential Android Apps</a></h2><p>Discover useful Android apps for everyday tasks, productivity, and a smoother mobile experience.</p><a class="read-more" href="#app-1">Read More →</a></div>
+        </article>
+        <article class="post" data-category="Tools Utilities">
+          <div class="post-art"><span class="category">Tools</span><div class="app-icon" aria-hidden="true">⚙</div></div>
+          <div class="post-body"><div class="meta"><span>📅 Apps & Updates</span><span>● Tools</span></div><h2><a href="#app-2">Handy Tools for Your Phone</a></h2><p>A collection of practical tools that help make common mobile tasks simpler and quicker.</p><a class="read-more" href="#app-2">Read More →</a></div>
+        </article>
+        <article class="post" data-category="Games Android">
+          <div class="post-art"><span class="category">Games</span><div class="app-icon" aria-hidden="true">🎮</div></div>
+          <div class="post-body"><div class="meta"><span>📅 Apps & Updates</span><span>● Games</span></div><h2><a href="#app-3">Mobile Games & Guides</a></h2><p>Explore game recommendations, helpful guides, and tips for getting started.</p><a class="read-more" href="#app-3">Read More →</a></div>
+        </article>
+        <article class="post" data-category="Security Tools">
+          <div class="post-art"><span class="category">Security</span><div class="app-icon" aria-hidden="true">✓</div></div>
+          <div class="post-body"><div class="meta"><span>📅 Guides</span><span>● Security</span></div><h2><a href="#app-4">Privacy & Security Apps</a></h2><p>Learn about useful privacy tools and simple ways to improve your digital safety.</p><a class="read-more" href="#app-4">Read More →</a></div>
+        </article>
+        <article class="post" data-category="Productivity Tools">
+          <div class="post-art"><span class="category">Productivity</span><div class="app-icon" aria-hidden="true">✦</div></div>
+          <div class="post-body"><div class="meta"><span>📅 Guides</span><span>● Productivity</span></div><h2><a href="#app-5">Apps to Help You Get Things Done</a></h2><p>Find apps that can help organise notes, tasks, files, and everyday projects.</p><a class="read-more" href="#app-5">Read More →</a></div>
+        </article>
+        <article class="post" data-category="Web Tools">
+          <div class="post-art"><span class="category">Web Tools</span><div class="app-icon" aria-hidden="true">⌘</div></div>
+          <div class="post-body"><div class="meta"><span>📅 Tools & Guides</span><span>● Web</span></div><h2><a href="#app-6">Useful Online Tools</a></h2><p>Explore convenient browser-based tools for quick tasks on mobile and desktop.</p><a class="read-more" href="#app-6">Read More →</a></div>
+        </article>
+      </div>
+      <div class="empty" id="emptyState">No matching posts found. Try another search.</div>
+      <div class="pagination" aria-label="Pagination"><button class="current" type="button">1</button><button type="button" id="showAll">Show all</button></div>
+    </section>
+
+    <aside class="sidebar">
+      <section class="sidebar-box" id="about">
+        <h2 class="section-title">About Us</h2>
+        <p class="about">Welcome to SnappsHub — a simple place to discover apps, useful tools, and practical technology guides. Replace this text with your original site description.</p>
+      </section>
+      <section class="sidebar-box">
+        <h2 class="section-title">Browse Categories</h2>
+        <ul class="quick-links">
+          <li><a href="#android" data-filter="Android">Android Apps</a></li>
+          <li><a href="#tools" data-filter="Tools">Tools & Utilities</a></li>
+          <li><a href="#games" data-filter="Games">Games</a></li>
+          <li><a href="#security" data-filter="Security">Security & Privacy</a></li>
+          <li><a href="#productivity" data-filter="Productivity">Productivity</a></li>
+        </ul>
+      </section>
+      <section class="sidebar-box">
+        <h2 class="section-title">Popular Tags</h2>
+        <div class="tag-list" id="tagList">
+          <button type="button" data-filter="Android">Android</button><button type="button" data-filter="Tools">Tools</button><button type="button" data-filter="Games">Games</button><button type="button" data-filter="Security">Security</button><button type="button" data-filter="Productivity">Productivity</button><button type="button" data-filter="Web">Web</button>
+        </div>
+      </section>
+      <section class="sidebar-box">
+        <h2 class="section-title">Stay Updated</h2>
+        <form class="subscribe" id="subscribeForm">
+          <p class="about">Get updates when new apps and guides are added.</p>
+          <input type="email" id="emailInput" placeholder="Your email address" aria-label="Your email address" required>
+          <button type="submit">Subscribe</button>
+          <small>This demo form does not collect or send email addresses.</small>
+        </form>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="wrap footer-main">
+      <section><h3>SnappsHub</h3><p>Apps, tools, and helpful resources in one place. Update this section with your own site details and links.</p></section>
+      <section><h3>Quick Links</h3><div class="footer-links"><a href="#home">Home</a><a href="#about">About Us</a><a href="#privacy" id="privacy">Privacy Policy</a><a href="#contact">Contact</a></div></section>
+      <section><h3>Explore</h3><div class="footer-links"><a href="#latest">Latest Apps</a><a href="#android" data-filter="Android">Android Apps</a><a href="#tools" data-filter="Tools">Tools & Utilities</a><a href="#games" data-filter="Games">Games</a></div></section>
+    </div>
+    <div class="copyright"><div class="wrap copyright-inner"><span>© <span id="year"></span> SnappsHub. All rights reserved.</span><span>Powered by HTML, CSS & JavaScript</span></div></div>
+  </footer>
+
+  <script>
+    (() => {
+      const posts = [...document.querySelectorAll('.post')];
+      const searchInput = document.getElementById('searchInput');
+      const searchForm = document.getElementById('searchForm');
+      const emptyState = document.getElementById('emptyState');
+      const resultCount = document.getElementById('resultCount');
+      const notice = document.getElementById('notice');
+      let activeFilter = '';
+
+      function applyFilters() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visible = 0;
+        posts.forEach(post => {
+          const matchesText = post.textContent.toLowerCase().includes(query);
+          const categories = (post.dataset.category || '').toLowerCase().split(/\s+/);
+          const matchesCategory = !activeFilter || categories.some(category => category.includes(activeFilter.toLowerCase()));
+          const show = matchesText && matchesCategory;
+          post.hidden = !show;
+          if (show) visible++;
+        });
+        emptyState.style.display = visible ? 'none' : 'block';
+        resultCount.textContent = `${visible} ${visible === 1 ? 'post' : 'posts'}`;
+        document.querySelectorAll('[data-filter]').forEach(el => {
+          el.classList.toggle('selected', (el.dataset.filter || '').toLowerCase() === activeFilter.toLowerCase() && !!activeFilter);
+        });
+      }
+
+      searchForm.addEventListener('submit', event => {
+        event.preventDefault();
+        applyFilters();
+        document.getElementById('latest').scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      searchInput.addEventListener('input', applyFilters);
+
+      document.querySelectorAll('[data-filter]').forEach(link => {
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          activeFilter = link.dataset.filter || '';
+          applyFilters();
+          document.getElementById('latest').scrollIntoView({behavior:'smooth', block:'start'});
+          document.getElementById('navLinks').classList.remove('open');
+          document.getElementById('menuToggle').setAttribute('aria-expanded','false');
+        });
+      });
+
+      const menuToggle = document.getElementById('menuToggle');
+      menuToggle.addEventListener('click', () => {
+        const open = document.getElementById('navLinks').classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(open));
+      });
+
+      document.getElementById('showAll').addEventListener('click', () => {
+        activeFilter = '';
+        searchInput.value = '';
+        applyFilters();
+      });
+
+      document.getElementById('subscribeForm').addEventListener('submit', event => {
+        event.preventDefault();
+        notice.textContent = 'This is a front-end demo only. Connect a mailing-list service to enable subscriptions.';
+        notice.style.display = 'block';
+        document.getElementById('latest').scrollIntoView({behavior:'smooth', block:'start'});
+        document.getElementById('emailInput').value = '';
+      });
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+      applyFilters();
+    })();
+  </script>
 </body>
 </html>

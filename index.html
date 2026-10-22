@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6c4cff">
+<meta name="description" content="Discover apps, tools and useful downloads at SnappsHub.">
+<title>SnappsHub — Apps & Tools</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0b14;--card:#151525;--text:#f7f5ff;--muted:#aaa8c1;--accent:#9675ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif}
+header{position:sticky;top:0;background:#0b0b14ed;backdrop-filter:blur(12px);border-bottom:1px solid #ffffff12;z-index:2}
+nav,.wrap{width:min(1100px,92%);margin:auto}
+nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:23px;font-weight:850;letter-spacing:-1px}.logo span{color:var(--accent)}
+a{color:inherit;text-decoration:none}
+.hero{padding:70px 0 42px;text-align:center}
+.tag{display:inline-block;color:#c5b8ff;background:#9675ff20;border:1px solid #9675ff50;border-radius:30px;padding:7px 13px;font-size:13px}
+h1{font-size:clamp(35px,7vw,62px);line-height:1.08;letter-spacing:-2px;margin:22px 0 14px}
+h1 span{background:linear-gradient(100deg,#b9a4ff,#6ee7ff);color:transparent;background-clip:text}
+p{color:var(--muted);line-height:1.7}
+.hero p{max-width:570px;margin:0 auto 25px}
+.search{display:flex;max-width:540px;margin:25px auto 0;background:var(--card);border:1px solid #ffffff20;border-radius:15px;padding:6px}
+.search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:white;padding:12px;font-size:15px}
+.search button,.btn{background:var(--accent);border:0;border-radius:10px;padding:12px 18px;color:white;font-weight:700;cursor:pointer}
+section{padding:24px 0 55px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+h2{font-size:25px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:17px}
+.card{background:var(--card);border:1px solid #ffffff12;border-radius:18px;padding:20px;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#9675ff88}
+.appicon{width:54px;height:54px;display:grid;place-items:center;background:linear-gradient(135deg,#9675ff,#46c9e8);border-radius:15px;font-size:25px}
+.card h3{margin:17px 0 5px}.card p{font-size:14px;min-height:44px;margin:7px 0 18px}
+.card .btn{display:inline-block;font-size:13px;padding:10px 15px}
+.empty{display:none;text-align:center;padding:30px;color:var(--muted)}
+footer{text-align:center;border-top:1px solid #ffffff12;padding:28px 0 35px;font-size:13px;color:var(--muted)}
+@media(max-width:480px){.hero{padding-top:48px}.search button{padding:10px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><nav><a class="logo" href="#">Snapps<span>Hub</span></a><a href="#apps">Explore Apps ↗</a></nav></header>
+<main class="wrap">
+<div class="hero">
+<span class="tag">✦ YOUR DIGITAL DISCOVERY HUB</span>
+<h1>Apps that make life<br><span>more awesome.</span></h1>
+<p>Discover useful apps, digital tools and downloads—all in one place.</p>
+<form class="search" id="searchForm">
+<input id="search" type="search" placeholder="Search apps and tools..." aria-label="Search apps">
+<button type="submit">Search</button>
+</form>
+</div>
+<section id="apps">
+<div class="section-head"><h2>Explore Apps</h2><span id="count" style="color:var(--muted);font-size:13px">3 collections</span></div>
+<div class="grid" id="grid">
+<article class="card" data-search="android apps mobile">
+<div class="appicon">📱</div><h3>Android Apps</h3>
+<p>Explore apps and useful mobile resources.</p>
+<a class="btn" href="#contact">Explore More ↗</a>
+</article>
+<article class="card" data-search="tools utilities web online">
+<div class="appicon">⚡</div><h3>Web Tools</h3>
+<p>Discover handy tools for everyday tasks.</p>
+<a class="btn" href="#contact">Explore More ↗</a>
+</article>
+<article class="card" data-search="games entertainment">
+<div class="appicon">🎮</div><h3>Games & Fun</h3>
+<p>Find entertainment and gaming resources.</p>
+<a class="btn" href="#contact">Explore More ↗</a>
+</article>
+</div>
+<div class="empty" id="empty">No matching collections found. Try another search.</div>
+</section>
+<section id="contact">
+<div class="card" style="text-align:center">
+<h2>Something missing?</h2>
+<p>More apps and resources can be added here as the site grows.</p>
+<a class="btn" href="https://github.com/Alaminsaheb/snappshub.github.io">View Project on GitHub ↗</a>
+</div>
+</section>
+</main>
+<footer>© <span id="year"></span> SnappsHub. Built for app discovery.</footer>
+<script>
+const form=document.getElementById('searchForm');
+const input=document.getElementById('search');
+const cards=[...document.querySelectorAll('.card[data-search]')];
+const empty=document.getElementById('empty');
+const count=document.getElementById('count');
+function filterCards(){
+ const q=input.value.trim().toLowerCase();let shown=0;
+ cards.forEach(card=>{
+  const match=(card.dataset.search+' '+card.innerText).toLowerCase().includes(q);
+  card.style.display=match?'':'none';if(match)shown++;
+ });
+ empty.style.display=shown?'none':'block';
+ count.textContent=shown+' collections';
+}
+form.addEventListener('submit',e=>{e.preventDefault();filterCards()});
+input.addEventListener('input',filterCards);
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

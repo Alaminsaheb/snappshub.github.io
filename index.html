@@ -140,17 +140,6 @@
   </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="top-inner">
-      <div class="top-links">
-        <a href="#home">Home</a><a href="#about">About</a><a href="#contact">Contact</a><a href="#privacy">Privacy Policy</a>
-      </div>
-      <div class="socials" aria-label="Social links">
-        <a href="#" aria-label="Facebook">f</a><a href="#" aria-label="X">X</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Telegram">➤</a>
-      </div>
-    </div>
-  </div>
-
   <header class="masthead" id="home">
     <div class="wrap brand-row">
       <a class="brand" href="./" aria-label="SnappsHub home">
@@ -180,35 +169,11 @@
 
   <main class="wrap page">
     <section class="main-column" id="latest">
-      <h1 class="section-title"><span>Latest Apps & Tools</span><small id="resultCount">6 posts</small></h1>
+      <h1 class="section-title"><span>Latest Apps & Tools</span><small id="resultCount">0 apps</small></h1>
       <div class="notice" id="notice" role="status"></div>
       <div class="posts" id="posts">
-        <article class="post" data-category="Android Apps">
-          <div class="post-art"><span class="category">Android</span><div class="app-icon" aria-hidden="true">A</div></div>
-          <div class="post-body"><div class="meta"><span>📅 Apps & Updates</span><span>● Android</span></div><h2><a href="#app-1">Essential Android Apps</a></h2><p>Discover useful Android apps for everyday tasks, productivity, and a smoother mobile experience.</p><a class="read-more" href="#app-1">Read More →</a></div>
-        </article>
-        <article class="post" data-category="Tools Utilities">
-          <div class="post-art"><span class="category">Tools</span><div class="app-icon" aria-hidden="true">⚙</div></div>
-          <div class="post-body"><div class="meta"><span>📅 Apps & Updates</span><span>● Tools</span></div><h2><a href="#app-2">Handy Tools for Your Phone</a></h2><p>A collection of practical tools that help make common mobile tasks simpler and quicker.</p><a class="read-more" href="#app-2">Read More →</a></div>
-        </article>
-        <article class="post" data-category="Games Android">
-          <div class="post-art"><span class="category">Games</span><div class="app-icon" aria-hidden="true">🎮</div></div>
-          <div class="post-body"><div class="meta"><span>📅 Apps & Updates</span><span>● Games</span></div><h2><a href="#app-3">Mobile Games & Guides</a></h2><p>Explore game recommendations, helpful guides, and tips for getting started.</p><a class="read-more" href="#app-3">Read More →</a></div>
-        </article>
-        <article class="post" data-category="Security Tools">
-          <div class="post-art"><span class="category">Security</span><div class="app-icon" aria-hidden="true">✓</div></div>
-          <div class="post-body"><div class="meta"><span>📅 Guides</span><span>● Security</span></div><h2><a href="#app-4">Privacy & Security Apps</a></h2><p>Learn about useful privacy tools and simple ways to improve your digital safety.</p><a class="read-more" href="#app-4">Read More →</a></div>
-        </article>
-        <article class="post" data-category="Productivity Tools">
-          <div class="post-art"><span class="category">Productivity</span><div class="app-icon" aria-hidden="true">✦</div></div>
-          <div class="post-body"><div class="meta"><span>📅 Guides</span><span>● Productivity</span></div><h2><a href="#app-5">Apps to Help You Get Things Done</a></h2><p>Find apps that can help organise notes, tasks, files, and everyday projects.</p><a class="read-more" href="#app-5">Read More →</a></div>
-        </article>
-        <article class="post" data-category="Web Tools">
-          <div class="post-art"><span class="category">Web Tools</span><div class="app-icon" aria-hidden="true">⌘</div></div>
-          <div class="post-body"><div class="meta"><span>📅 Tools & Guides</span><span>● Web</span></div><h2><a href="#app-6">Useful Online Tools</a></h2><p>Explore convenient browser-based tools for quick tasks on mobile and desktop.</p><a class="read-more" href="#app-6">Read More →</a></div>
-        </article>
       </div>
-      <div class="empty" id="emptyState">No matching posts found. Try another search.</div>
+      <div class="empty" id="emptyState">No apps have been added yet.</div>
       <div class="pagination" aria-label="Pagination"><button class="current" type="button">1</button><button type="button" id="showAll">Show all</button></div>
     </section>
 
@@ -256,72 +221,159 @@
 
   <script>
     (() => {
-      const posts = [...document.querySelectorAll('.post')];
-      const searchInput = document.getElementById('searchInput');
-      const searchForm = document.getElementById('searchForm');
-      const emptyState = document.getElementById('emptyState');
-      const resultCount = document.getElementById('resultCount');
+      const container = document.getElementById('posts');
+      const search = document.getElementById('searchInput');
+      const form = document.getElementById('searchForm');
+      const empty = document.getElementById('emptyState');
+      const count = document.getElementById('resultCount');
       const notice = document.getElementById('notice');
-      let activeFilter = '';
+      const nav = document.getElementById('navLinks');
+      const toggle = document.getElementById('menuToggle');
+      let apps = [];
+      let filter = '';
+
+      function safeUrl(value) {
+        try {
+          const u = new URL(value, location.href);
+          return ['https:', 'http:'].includes(u.protocol) ? u.href : '';
+        } catch (_) { return ''; }
+      }
+
+      function render() {
+        container.replaceChildren();
+        apps.forEach(app => {
+          const name = String(app.name || 'Unnamed app');
+          const desc = String(app.description || '');
+          const category = String(app.category || 'Apps');
+          const url = safeUrl(app.url || '');
+          const iconUrl = safeUrl(app.icon || '');
+
+          const article = document.createElement('article');
+          article.className = 'post';
+          article.dataset.category = category;
+          article.dataset.search = [name, desc, category].join(' ').toLowerCase();
+
+          const art = document.createElement('div');
+          art.className = 'post-art';
+          const badge = document.createElement('span');
+          badge.className = 'category';
+          badge.textContent = category;
+          art.appendChild(badge);
+
+          if (iconUrl) {
+            const img = document.createElement('img');
+            img.className = 'app-icon';
+            img.src = iconUrl;
+            img.alt = name + ' icon';
+            img.loading = 'lazy';
+            art.appendChild(img);
+          } else {
+            const icon = document.createElement('div');
+            icon.className = 'app-icon';
+            icon.textContent = name.charAt(0).toUpperCase();
+            art.appendChild(icon);
+          }
+
+          const body = document.createElement('div');
+          body.className = 'post-body';
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          const m1 = document.createElement('span');
+          m1.textContent = 'Apps & Updates';
+          const m2 = document.createElement('span');
+          m2.textContent = '● ' + category;
+          meta.append(m1, m2);
+
+          const heading = document.createElement('h2');
+          heading.textContent = name;
+          const description = document.createElement('p');
+          description.textContent = desc;
+          body.append(meta, heading, description);
+
+          if (url) {
+            const link = document.createElement('a');
+            link.className = 'read-more';
+            link.href = url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = 'Open / Download →';
+            body.appendChild(link);
+          }
+          article.append(art, body);
+          container.appendChild(article);
+        });
+        applyFilters();
+      }
 
       function applyFilters() {
-        const query = searchInput.value.trim().toLowerCase();
+        const q = (search?.value || '').trim().toLowerCase();
         let visible = 0;
-        posts.forEach(post => {
-          const matchesText = post.textContent.toLowerCase().includes(query);
+        container.querySelectorAll('.post').forEach(post => {
           const categories = (post.dataset.category || '').toLowerCase().split(/\s+/);
-          const matchesCategory = !activeFilter || categories.some(category => category.includes(activeFilter.toLowerCase()));
-          const show = matchesText && matchesCategory;
+          const show = (post.dataset.search || '').includes(q) &&
+            (!filter || categories.some(c => c.includes(filter.toLowerCase())));
           post.hidden = !show;
           if (show) visible++;
         });
-        emptyState.style.display = visible ? 'none' : 'block';
-        resultCount.textContent = `${visible} ${visible === 1 ? 'post' : 'posts'}`;
+        count.textContent = `${visible} ${visible === 1 ? 'app' : 'apps'}`;
+        empty.style.display = visible ? 'none' : 'block';
+        empty.textContent = apps.length
+          ? 'No matching apps found. Try another search.'
+          : 'No apps have been added yet.';
         document.querySelectorAll('[data-filter]').forEach(el => {
-          el.classList.toggle('selected', (el.dataset.filter || '').toLowerCase() === activeFilter.toLowerCase() && !!activeFilter);
+          el.classList.toggle('selected',
+            !!filter && (el.dataset.filter || '').toLowerCase() === filter.toLowerCase());
         });
       }
 
-      searchForm.addEventListener('submit', event => {
-        event.preventDefault();
+      form?.addEventListener('submit', e => {
+        e.preventDefault();
         applyFilters();
-        document.getElementById('latest').scrollIntoView({behavior:'smooth', block:'start'});
+        document.getElementById('latest').scrollIntoView({behavior:'smooth'});
       });
-      searchInput.addEventListener('input', applyFilters);
+      search?.addEventListener('input', applyFilters);
 
-      document.querySelectorAll('[data-filter]').forEach(link => {
-        link.addEventListener('click', event => {
-          event.preventDefault();
-          activeFilter = link.dataset.filter || '';
+      document.querySelectorAll('[data-filter]').forEach(el => {
+        el.addEventListener('click', e => {
+          e.preventDefault();
+          filter = el.dataset.filter || '';
           applyFilters();
-          document.getElementById('latest').scrollIntoView({behavior:'smooth', block:'start'});
-          document.getElementById('navLinks').classList.remove('open');
-          document.getElementById('menuToggle').setAttribute('aria-expanded','false');
+          document.getElementById('latest').scrollIntoView({behavior:'smooth'});
+          nav?.classList.remove('open');
+          toggle?.setAttribute('aria-expanded', 'false');
         });
       });
 
-      const menuToggle = document.getElementById('menuToggle');
-      menuToggle.addEventListener('click', () => {
-        const open = document.getElementById('navLinks').classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', String(open));
+      toggle?.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
       });
 
-      document.getElementById('showAll').addEventListener('click', () => {
-        activeFilter = '';
-        searchInput.value = '';
+      document.getElementById('showAll')?.addEventListener('click', () => {
+        filter = '';
+        if (search) search.value = '';
         applyFilters();
       });
 
-      document.getElementById('subscribeForm').addEventListener('submit', event => {
-        event.preventDefault();
+      document.getElementById('subscribeForm')?.addEventListener('submit', e => {
+        e.preventDefault();
         notice.textContent = 'This is a front-end demo only. Connect a mailing-list service to enable subscriptions.';
         notice.style.display = 'block';
-        document.getElementById('latest').scrollIntoView({behavior:'smooth', block:'start'});
         document.getElementById('emailInput').value = '';
       });
 
-      document.getElementById('year').textContent = new Date().getFullYear();
-      applyFilters();
+      const year = document.getElementById('year');
+      if (year) year.textContent = new Date().getFullYear();
+
+      fetch('./apps.json', {cache:'no-store'})
+        .then(r => { if (!r.ok) throw new Error('apps.json load failed'); return r.json(); })
+        .then(data => { apps = Array.isArray(data) ? data : []; render(); })
+        .catch(err => {
+          console.error(err);
+          apps = [];
+          render();
+          empty.textContent = 'Apps could not be loaded right now.';
+        });
     })();
   </script>
 </body>

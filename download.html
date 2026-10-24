@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>Confirm Download — SN Apps Hub</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(ellipse at top,#243b65,#101522 62%);color:#f5f7ff;font:16px/1.5 system-ui,sans-serif}.card{width:min(100%,470px);padding:28px;border:1px solid #ffffff24;border-radius:22px;background:#111827eF;box-shadow:0 18px 60px #0006;text-align:center}.app-icon{width:88px;height:88px;object-fit:contain;border-radius:20px;margin:0 auto 12px}.fallback{display:none;width:88px;height:88px;margin:0 auto 12px;border-radius:20px;background:#263550;place-items:center;font-size:36px}.telegram{display:inline-flex;align-items:center;justify-content:center;gap:9px;margin:15px 0;color:#7dd3fc;text-decoration:none}.telegram img{width:26px;height:26px;object-fit:contain}.btn{display:block;margin-top:18px;padding:13px 18px;border-radius:12px;background:#39bdf8;color:#071522;font-weight:800;text-decoration:none}.back{display:inline-block;margin-top:18px;color:#cbd5e1}.note{color:#cbd5e1;font-size:14px}h1{font-size:25px;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main class="card">
+  <img id="appIcon" class="app-icon" alt="App icon" hidden>
+  <div id="fallback" class="fallback" aria-hidden="true">⬇</div>
+  <h1 id="appName">Confirm Download</h1>
+  <p>You're about to open the app's download link.</p>
+  <a class="telegram" href="https://t.me/snappshub" target="_blank" rel="noopener noreferrer">
+    <img src="https://telegram.org/img/t_logo.png" alt="">
+    Follow SN Apps Hub on Telegram <span>(optional)</span>
+  </a>
+  <p class="note">Telegram is optional. You do not need to join the channel to download.</p>
+  <a id="continue" class="btn" href="#" rel="noopener noreferrer">Continue Download</a>
+  <a class="back" href="./">← Back to SN Apps Hub</a>
+</main>
+<script>
+(()=>{
+ const q=new URLSearchParams(location.search);
+ const name=(q.get('name')||'App').slice(0,180);
+ let url='',icon='';
+ try{const u=new URL(q.get('url')||'');if(['https:','http:'].includes(u.protocol))url=u.href;}catch(_){}
+ try{const u=new URL(q.get('icon')||'');if(['https:','http:'].includes(u.protocol))icon=u.href;}catch(_){}
+ document.getElementById('appName').textContent=name;
+ const img=document.getElementById('appIcon'),fallback=document.getElementById('fallback');
+ if(icon){img.src=icon;img.hidden=false;img.onerror=()=>{img.hidden=true;fallback.style.display='grid';};}
+ else fallback.style.display='grid';
+ const go=document.getElementById('continue');
+ if(url){go.href=url;go.target='_blank';}
+ else{go.removeAttribute('href');go.setAttribute('aria-disabled','true');go.textContent='Download link unavailable';go.style.opacity='.6';}
+})();
+</script>
+</body>
+</html>
